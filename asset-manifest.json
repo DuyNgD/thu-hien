@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/thu-hien/static/css/main.ee463b70.css",
+    "main.js": "/thu-hien/static/js/main.0869a4a6.js",
+    "index.html": "/thu-hien/index.html",
+    "main.ee463b70.css.map": "/thu-hien/static/css/main.ee463b70.css.map",
+    "main.0869a4a6.js.map": "/thu-hien/static/js/main.0869a4a6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ee463b70.css",
+    "static/js/main.0869a4a6.js"
+  ]
+}
