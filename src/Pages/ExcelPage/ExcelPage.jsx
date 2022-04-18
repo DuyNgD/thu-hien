@@ -1,7 +1,8 @@
-import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-import { Button, Space, Table } from "antd";
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Input, Space, Table } from "antd";
 import confirm from 'antd/lib/modal/confirm';
 import React from 'react';
+import Highlighter from 'react-highlight-words';
 import { toast } from 'react-toastify';
 import { clearListUserInfo, getListUserInfo, saveListUserInfo } from "../../API/API";
 import ActionPanel from '../../Components/ActionPanel/ActionPanel';
@@ -9,8 +10,10 @@ import ModalInfo from "./Modal/ModalInfo";
 
 const ExcelPage = () => {
   const [dataSource, setDataSource] = React.useState(getListUserInfo());
+  const [page, setPage] = React.useState(1);
   const [showModalInfo, setShowModalInfo] = React.useState(false);
   const [userInfoSelected, setUserInfoSelected] = React.useState(null);
+  const [searchKeys, setSearchKeys] = React.useState({});
   // End Initial
 
   // Functions
@@ -33,7 +36,7 @@ const ExcelPage = () => {
       okText: "Xóa",
       okType: 'danger',
       onCancel() {
-        
+
       },
       cancelText: "Không"
     });
@@ -57,6 +60,7 @@ const ExcelPage = () => {
 
     handleSaveData(listUserInfo);
     toast.info("Cập nhật thông tin " + (values.name !== "" ? values.name : "STT " + values.key));
+    handleCloseModalInfo();
   };
 
   const handleDeleteUserInfo = (values) => {
@@ -79,42 +83,171 @@ const ExcelPage = () => {
     toast.warn("Đã xóa tất cả thông tin");
   };
 
+  const handleSearchColumn = (dataIndex, value, callback) => {
+    const searchKeysModified = JSON.parse(JSON.stringify(searchKeys));
+
+    searchKeysModified[dataIndex] = value[0];
+    setSearchKeys(searchKeysModified);
+
+    callback();
+  }
+
+  const getColumnSearchProps = (dataIndex) => {
+    return {
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+        <div style={{ padding: 8 }}>
+          <Input
+            placeholder="Nội dung tìm kiếm"
+            value={selectedKeys[0]}
+            onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+            onPressEnter={() => handleSearchColumn(dataIndex, selectedKeys, confirm)}
+            onBlur={() => handleSearchColumn(dataIndex, selectedKeys, confirm)}
+            style={{ marginBottom: 8, display: 'block' }}
+          />
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => handleSearchColumn(dataIndex, selectedKeys, confirm)}
+              icon={<SearchOutlined />}
+              size="small"
+              style={{ width: 90 }}
+            >
+              Tìm kiếm
+            </Button>
+            <Button
+              size="small" style={{ width: 90 }}
+              onClick={() => {
+                handleSearchColumn(dataIndex, [null], () => { clearFilters(); confirm(); })
+              }}
+            >
+              Xóa
+            </Button>
+          </Space>
+        </div >
+      ),
+      filterIcon: (filtered) => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+      onFilter: (value, record) =>
+        record[dataIndex]
+          ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
+          : '',
+      render: (value, item, index) =>
+        searchKeys[dataIndex] ? (
+          <Highlighter
+            highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+            searchWords={[searchKeys[dataIndex]]}
+            autoEscape
+            textToHighlight={value ? value.toString() : ''}
+          />
+        ) : (
+          value
+        )
+    };
+  };
+
   const columns = [
-    { title: 'Ngày', dataIndex: 'date', key: 'date', width: 120, fixed: 'left' },
+    {
+      title: 'Ngày',
+      dataIndex: 'date',
+      key: 'date',
+      width: 120,
+      fixed: 'left',
+      ...getColumnSearchProps('date')
+    },
     {
       title: 'STT',
       dataIndex: 'key',
       key: 'key',
       width: 100,
       fixed: 'left',
-      sorter: (a, b) => a.key - b.key,
-      sortDirections: ['descend', 'ascend']
+      ...getColumnSearchProps('key'),
+      render: (value, item, index) => (page - 1) * 10 + (index + 1),
     },
     {
       title: 'Họ và Tên',
       dataIndex: 'name',
       key: 'name',
-      width: 120,
-      fixed: 'left'
+      width: 150,
+      fixed: 'left',
+      ...getColumnSearchProps('name')
     },
-    { title: 'SĐT', dataIndex: 'phone', key: 'phone', width: 100, fixed: 'left' },
-    { title: 'Email', dataIndex: 'email', key: 'email', width: 250 },
+    {
+      title: 'SĐT',
+      dataIndex: 'phone',
+      key: 'phone',
+      width: 100,
+      fixed: 'left',
+      ...getColumnSearchProps('phone')
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+      width: 250,
+      ...getColumnSearchProps('email')
+    },
     {
       title: 'Tiền',
       dataIndex: 'money',
       key: 'money',
       width: 100,
-      sorter: (a, b) => a.money - b.money,
-      sortDirections: ['descend', 'ascend']
+      ...getColumnSearchProps('money')
     },
-    { title: 'Bank', dataIndex: 'bank', key: 'bank', width: 100 },
-    { title: 'Địa Chỉ', dataIndex: 'address', key: 'address', width: 150 },
-    { title: 'Sách', dataIndex: 'book', key: 'book', width: 100 },
-    { title: 'Tình trạng', dataIndex: 'status', key: 'status', width: 100 },
-    { title: 'Khóa học', dataIndex: 'course', key: 'course', width: 100 },
-    { title: 'Trạng thái Khóa học', dataIndex: 'courseStatus', key: 'courseStatus', width: 100 },
-    { title: 'Ghi Chú, Nguồn Chat', dataIndex: 'note', key: 'note', width: 120 },
-    { title: 'Mã Vận Đơn', dataIndex: 'ladingCode', key: 'ladingCode', width: 120 },
+    {
+      title: 'Bank',
+      dataIndex: 'bank',
+      key: 'bank',
+      width: 100,
+      ...getColumnSearchProps('bank')
+    },
+    {
+      title: 'Địa Chỉ',
+      dataIndex: 'address',
+      key: 'address',
+      width: 200,
+      ...getColumnSearchProps('address')
+    },
+    {
+      title: 'Sách',
+      dataIndex: 'book',
+      key: 'book',
+      width: 100,
+      ...getColumnSearchProps('book')
+    },
+    {
+      title: 'Tình trạng',
+      dataIndex: 'status',
+      key: 'status',
+      width: 120,
+      ...getColumnSearchProps('status')
+    },
+    {
+      title: 'Khóa học',
+      dataIndex: 'course',
+      key: 'course',
+      width: 120,
+      ...getColumnSearchProps('course')
+    },
+    {
+      title: 'Trạng thái Khóa học',
+      dataIndex: 'courseStatus',
+      key: 'courseStatus',
+      width: 120,
+      ...getColumnSearchProps('courseStatus')
+    },
+    {
+      title: 'Ghi Chú, Nguồn Chat',
+      dataIndex: 'note',
+      key: 'note',
+      width: 200,
+      ...getColumnSearchProps('note')
+    },
+    {
+      title: 'Mã Vận Đơn',
+      dataIndex: 'ladingCode',
+      key: 'ladingCode',
+      width: 150,
+      ...getColumnSearchProps('ladingCode')
+    },
     {
       title: 'Thực hiện',
       dataIndex: '',
@@ -134,19 +267,23 @@ const ExcelPage = () => {
 
   // Render UI
   return (
-    <>
+    <Space direction="vertical" style={{ display: 'flex' }}>
       <ActionPanel
         addNewOnClick={handleShowModalInfo}
         dataSource={dataSource}
         handleSaveData={handleSaveData}
         handleClearListUserInfo={handleClearListUserInfo}
-      // exportExcelOnclick={}
       />
       <Table
         dataSource={dataSource}
         columns={columns}
-        scroll={{ x: 2000, y: "80vh" }}
-        pagination={{ position: ["bottomCenter"] }}
+        scroll={{ x: 2000, y: "75vh" }}
+        pagination={{
+          position: ["bottomCenter"],
+          onChange(current) {
+            setPage(current);
+          }
+        }}
       />
       <ModalInfo
         showModalInfo={showModalInfo}
@@ -155,7 +292,7 @@ const ExcelPage = () => {
         handleSaveInfo={handleSaveInfo}
         handleEditInfo={handleEditInfo}
       />
-    </>
+    </Space>
   );
 };
 

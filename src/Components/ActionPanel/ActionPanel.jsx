@@ -57,7 +57,7 @@ const ActionPanel = (props) => {
     });
   }
 
-  const multiDataSet = [
+  const dataSet = [
     {
       columns: [
         { value: "Ngày", widthPx: 100 },
@@ -122,7 +122,7 @@ const ActionPanel = (props) => {
               </Button>
             }
           >
-            <ExcelSheet dataSet={multiDataSet} name="Test" />
+            <ExcelSheet dataSet={dataSet} name="Test" />
           </ExcelFile>
         }
       </Space>
