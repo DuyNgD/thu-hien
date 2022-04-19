@@ -74,6 +74,7 @@ const ExcelPage = () => {
   };
 
   const handleSaveData = (data) => {
+    setUserInfoSelected(null);
     setDataSource(data);
     saveListUserInfo(data);
   };

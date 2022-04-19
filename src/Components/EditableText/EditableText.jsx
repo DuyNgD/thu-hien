@@ -7,6 +7,10 @@ const EditableText = (props) => {
   const [stateValue, setStateValue] = React.useState(props.item[props.dataIndex]);
   // End Inits
 
+  React.useLayoutEffect(() => {
+    setStateValue(props.item[props.dataIndex]);
+  }, [props.item]);
+
   // Functions
   const handleToggleEdit = (bool) => {
     setToggle(bool);
@@ -46,7 +50,7 @@ const EditableText = (props) => {
       }}
     />
   ) : (
-    <p onClick={() => handleToggleEdit(true)}>
+    <p className="editableText" onClick={() => handleToggleEdit(true)}>
       {stateValue}
     </p>
   );
