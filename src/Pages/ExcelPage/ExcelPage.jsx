@@ -141,7 +141,11 @@ const ExcelPage = () => {
             textToHighlight={value ? value.toString() : ''}
           />
         ) : (
-          value
+          <EditableText
+            item={item}
+            dataIndex={dataIndex}
+            callback={(values) => handleEditInfo(values)}
+          />
         )
     };
   };
@@ -154,12 +158,6 @@ const ExcelPage = () => {
       width: 120,
       fixed: 'left',
       ...getColumnSearchProps('date'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="date"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'STT',
@@ -177,12 +175,6 @@ const ExcelPage = () => {
       width: 150,
       fixed: 'left',
       ...getColumnSearchProps('name'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="name"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'SĐT',
@@ -191,12 +183,6 @@ const ExcelPage = () => {
       width: 100,
       fixed: 'left',
       ...getColumnSearchProps('phone'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="phone"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Email',
@@ -204,12 +190,6 @@ const ExcelPage = () => {
       key: 'email',
       width: 250,
       ...getColumnSearchProps('email'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="email"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Tiền',
@@ -217,12 +197,6 @@ const ExcelPage = () => {
       key: 'money',
       width: 100,
       ...getColumnSearchProps('money'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="money"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Bank',
@@ -230,12 +204,6 @@ const ExcelPage = () => {
       key: 'bank',
       width: 100,
       ...getColumnSearchProps('bank'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="bank"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Địa Chỉ',
@@ -243,12 +211,6 @@ const ExcelPage = () => {
       key: 'address',
       width: 200,
       ...getColumnSearchProps('address'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="address"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Sách',
@@ -256,12 +218,6 @@ const ExcelPage = () => {
       key: 'book',
       width: 100,
       ...getColumnSearchProps('book'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="book"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Tình trạng',
@@ -269,12 +225,6 @@ const ExcelPage = () => {
       key: 'status',
       width: 120,
       ...getColumnSearchProps('status'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="status"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Khóa học',
@@ -282,12 +232,6 @@ const ExcelPage = () => {
       key: 'course',
       width: 120,
       ...getColumnSearchProps('course'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="course"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Trạng thái Khóa học',
@@ -295,12 +239,6 @@ const ExcelPage = () => {
       key: 'courseStatus',
       width: 120,
       ...getColumnSearchProps('courseStatus'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="courseStatus"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Ghi Chú, Nguồn Chat',
@@ -308,12 +246,6 @@ const ExcelPage = () => {
       key: 'note',
       width: 200,
       ...getColumnSearchProps('note'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="note"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Mã Vận Đơn',
@@ -321,12 +253,6 @@ const ExcelPage = () => {
       key: 'ladingCode',
       width: 150,
       ...getColumnSearchProps('ladingCode'),
-      render: (value, item, index) =>
-        <EditableText
-          item={item}
-          dataIndex="ladingCode"
-          callback={(values) => handleEditInfo(values)}
-        />,
     },
     {
       title: 'Thực hiện',
