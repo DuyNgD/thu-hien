@@ -6,6 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { toast } from 'react-toastify';
 import { clearListUserInfo, getListUserInfo, saveListUserInfo } from "../../API/API";
 import ActionPanel from '../../Components/ActionPanel/ActionPanel';
+import EditableText from '../../Components/EditableText/EditableText';
 import ModalInfo from "./Modal/ModalInfo";
 
 const ExcelPage = () => {
@@ -151,7 +152,13 @@ const ExcelPage = () => {
       key: 'date',
       width: 120,
       fixed: 'left',
-      ...getColumnSearchProps('date')
+      ...getColumnSearchProps('date'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="date"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'STT',
@@ -168,7 +175,13 @@ const ExcelPage = () => {
       key: 'name',
       width: 150,
       fixed: 'left',
-      ...getColumnSearchProps('name')
+      ...getColumnSearchProps('name'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="name"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'SĐT',
@@ -176,77 +189,143 @@ const ExcelPage = () => {
       key: 'phone',
       width: 100,
       fixed: 'left',
-      ...getColumnSearchProps('phone')
+      ...getColumnSearchProps('phone'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="phone"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
       width: 250,
-      ...getColumnSearchProps('email')
+      ...getColumnSearchProps('email'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="email"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Tiền',
       dataIndex: 'money',
       key: 'money',
       width: 100,
-      ...getColumnSearchProps('money')
+      ...getColumnSearchProps('money'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="money"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Bank',
       dataIndex: 'bank',
       key: 'bank',
       width: 100,
-      ...getColumnSearchProps('bank')
+      ...getColumnSearchProps('bank'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="bank"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Địa Chỉ',
       dataIndex: 'address',
       key: 'address',
       width: 200,
-      ...getColumnSearchProps('address')
+      ...getColumnSearchProps('address'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="address"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Sách',
       dataIndex: 'book',
       key: 'book',
       width: 100,
-      ...getColumnSearchProps('book')
+      ...getColumnSearchProps('book'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="book"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Tình trạng',
       dataIndex: 'status',
       key: 'status',
       width: 120,
-      ...getColumnSearchProps('status')
+      ...getColumnSearchProps('status'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="status"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Khóa học',
       dataIndex: 'course',
       key: 'course',
       width: 120,
-      ...getColumnSearchProps('course')
+      ...getColumnSearchProps('course'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="course"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Trạng thái Khóa học',
       dataIndex: 'courseStatus',
       key: 'courseStatus',
       width: 120,
-      ...getColumnSearchProps('courseStatus')
+      ...getColumnSearchProps('courseStatus'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="courseStatus"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Ghi Chú, Nguồn Chat',
       dataIndex: 'note',
       key: 'note',
       width: 200,
-      ...getColumnSearchProps('note')
+      ...getColumnSearchProps('note'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="note"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Mã Vận Đơn',
       dataIndex: 'ladingCode',
       key: 'ladingCode',
       width: 150,
-      ...getColumnSearchProps('ladingCode')
+      ...getColumnSearchProps('ladingCode'),
+      render: (value, item, index) =>
+        <EditableText
+          item={item}
+          dataIndex="ladingCode"
+          callback={(values) => handleEditInfo(values)}
+        />,
     },
     {
       title: 'Thực hiện',

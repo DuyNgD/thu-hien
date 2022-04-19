@@ -48,123 +48,125 @@ const ModalInfo = (props) => {
   };
 
   return (
-    <Modal
-      title="Thông tin học viên"
-      visible={props.showModalInfo}
-      footer={[
-        <Button type="primary" size="large" form="userInfo" key="submit" htmlType="submit">
-          Lưu
-        </Button>
-      ]}
-      onCancel={props.handleCloseModalInfo}
-      width={860}
-      forceRender
-    >
-      <Form
-        id="userInfo"
-        name="userInfo"
-        form={form}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 12 }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="on"
-        initialValues={userInfoInit}
+    <React.Fragment>
+      <Modal
+        title="Thông tin học viên"
+        visible={props.showModalInfo}
+        footer={[
+          <Button type="primary" size="large" form="userInfo" key="submit" htmlType="submit">
+            Lưu
+          </Button>
+        ]}
+        onCancel={props.handleCloseModalInfo}
+        width={860}
+        forceRender
       >
-        <Row gutter={16}>
-          <Col className="gutter-row" xs={12} xl={12}>
-            <Form.Item
-              label="Ngày"
-              name="date"
-            >
-              <DatePicker locale={locale} format={dateFormat} />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col className="gutter-row" xs={12} xl={12}>
-            <Form.Item
-              label="Họ và Tên"
-              name="name"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="SĐT"
-              name="phone"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Email"
-              name="email"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Tiền"
-              name="money"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Bank"
-              name="bank"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Địa chỉ"
-              name="address"
-            >
-              <TextArea
-                autoSize={{ minRows: 2, maxRows: 6 }}
-              />
-            </Form.Item>
-          </Col>
-          <Col className="gutter-row" xs={12} xl={12}>
-            <Form.Item
-              label="Sách"
-              name="book"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Tình trạng"
-              name="status"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Khóa học"
-              name="course"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Trạng thái Khóa học"
-              name="courseStatus"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Mã vận đơn"
-              name="ladingCode"
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              label="Ghi chú"
-              name="note"
-            >
-              <TextArea
-                autoSize={{ minRows: 2, maxRows: 6 }}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </Modal>
+        <Form
+          id="userInfo"
+          name="userInfo"
+          form={form}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 12 }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="on"
+          initialValues={userInfoInit}
+        >
+          <Row gutter={16}>
+            <Col className="gutter-row" xs={12} xl={12}>
+              <Form.Item
+                label="Ngày"
+                name="date"
+              >
+                <DatePicker locale={locale} format={dateFormat} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col className="gutter-row" xs={12} xl={12}>
+              <Form.Item
+                label="Họ và Tên"
+                name="name"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="SĐT"
+                name="phone"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Email"
+                name="email"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Tiền"
+                name="money"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Bank"
+                name="bank"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Địa chỉ"
+                name="address"
+              >
+                <TextArea
+                  autoSize={{ minRows: 2, maxRows: 6 }}
+                />
+              </Form.Item>
+            </Col>
+            <Col className="gutter-row" xs={12} xl={12}>
+              <Form.Item
+                label="Sách"
+                name="book"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Tình trạng"
+                name="status"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Khóa học"
+                name="course"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Trạng thái Khóa học"
+                name="courseStatus"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Mã vận đơn"
+                name="ladingCode"
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Ghi chú"
+                name="note"
+              >
+                <TextArea
+                  autoSize={{ minRows: 2, maxRows: 6 }}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
+    </React.Fragment>
   );
 };
 
